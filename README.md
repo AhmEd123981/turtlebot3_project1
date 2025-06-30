@@ -210,7 +210,6 @@ class PotentialFieldNode(Node):
         self.angular_speed = 0.5
         self.laser_ranges = []
         self.last_cmd = Twist()
-
     def odom_callback(self, msg):
         self.robot_x = msg.pose.pose.position.x
         self.robot_y = msg.pose.pose.position.y
@@ -218,15 +217,12 @@ class PotentialFieldNode(Node):
         siny_cosp = 2 * (orientation.w * orientation.z + orientation.x * orientation.y)
         cosy_cosp = 1 - 2 * (orientation.y * orientation.y + orientation.z * orientation.z)
         self.robot_theta = atan2(siny_cosp, cosy_cosp)
-
     def goal_callback(self, msg):
         self.goal_x = msg.pose.position.x
         self.goal_y = msg.pose.position.y
-
     def laser_callback(self, msg):
         self.laser_ranges = msg.ranges
         self.compute_potential_field()
-
     def smooth_velocity(self, new_cmd):
         alpha = 0.7
         cmd = Twist()
@@ -234,7 +230,6 @@ class PotentialFieldNode(Node):
         cmd.angular.z = alpha * self.last_cmd.angular.z + (1 - alpha) * new_cmd.angular.z
         self.last_cmd = cmd
         return cmd
-
     def compute_potential_field(self):
         if not self.laser_ranges:
             return
@@ -268,7 +263,6 @@ class PotentialFieldNode(Node):
         cmd = self.smooth_velocity(cmd)
         self.publisher.publish(cmd)
         self.get_logger().info(f'Linear Vel: {cmd.linear.x:.2f}, Angular Vel: {cmd.angular.z:.2f}')
-
 def main(args=None):
     rclpy.init(args=args)
     node = PotentialFieldNode()
@@ -301,7 +295,7 @@ setup(
     license='Apache License 2.0',
     entry_points={
         'console_scripts': [
-            'example = scripts.example:main',
+         'example = scripts.example:main',
         ],
     },
     data_files=[
