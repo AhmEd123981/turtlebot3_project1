@@ -296,7 +296,7 @@ setup(
     install_requires=['setuptools'],
     zip_safe=True,
     maintainer='Your Name',
-    maintainer_email='your.email@example.com',
+    maintainer_email='ahmedgouda20555@gmail.com',
     description='ROS2 package for Potential Fields Method',
     license='Apache License 2.0',
     entry_points={
